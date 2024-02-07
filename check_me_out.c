@@ -56,7 +56,7 @@ void normal_darts(int points, int darts[], int dart_count){
     // normal darts are any dart which can be used when not
     // checking out.
     if (points == 0){
-        // print_checkout(darts, dart_count);
+        //print_checkout(darts, dart_count);
         ++total_solutions;
         return;
     }
