@@ -21,3 +21,5 @@ When I run it with a target score of 501 and 9 darts I get the expected 3944 pos
 ## Python Program
 
 Run using `python check_me_out.py [target_score] [number_of_darts]`, again I've done no error checking so no naughty inputs please.
+
+It's written in pure python but does use a walrus operator so at least Python 3.8 and up, also I think some of the type hinting uses a style that was only introduced in 3.10, so let's say that to be safe.
