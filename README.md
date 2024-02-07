@@ -21,3 +21,9 @@ When I run it with a target score of 501 and 9 darts I get the expected 3944 pos
 ## Python Program
 
 Run using `python check_me_out.py [target_score] [number_of_darts]`, again I've done no error checking so no naughty inputs please.
+
+## Graph of possible checkouts
+
+For fun here is a graph of how many combinations there are for each possible 3 dart checkout.
+
+![checkouts](https://github.com/fred-cook/stand-up-if-you-love-the-darts/assets/135046797/1d3ec348-187c-4848-a4b4-1379cefbf7b5)
