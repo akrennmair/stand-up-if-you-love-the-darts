@@ -1,4 +1,4 @@
-# stand-up-if-you-love-the-darts
+# [stand-up-if-you-love-the-darts](https://www.youtube.com/watch?v=TfwnO3T5TY8)
 
 Two programs for calculating darts checkouts given a total to achieve and a number of darts to achieve it, bearing in mind you have to finish on a double or the bull.
 
@@ -23,3 +23,9 @@ When I run it with a target score of 501 and 9 darts I get the expected 3944 pos
 Run using `python check_me_out.py [target_score] [number_of_darts]`, again I've done no error checking so no naughty inputs please.
 
 It's written in pure python but does use a walrus operator so at least Python 3.8 and up, also I think some of the type hinting uses a style that was only introduced in 3.10, so let's say that to be safe.
+
+## Graph of possible checkouts
+
+For fun here is a graph of how many combinations there are for each possible 3 dart checkout.
+
+![checkouts](https://github.com/fred-cook/stand-up-if-you-love-the-darts/assets/135046797/1d3ec348-187c-4848-a4b4-1379cefbf7b5)
