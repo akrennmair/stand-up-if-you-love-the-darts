@@ -6,6 +6,8 @@ The programs are almost identical except one is written in Python and one is wri
 
 They both have one small optimisation to reduce the number of darts you have to search for by calculating the minimum possible dart to reach a score, assuming all of the other darts scored their maximums.
 
+A significant speed up could be had from caching, however I can't think of a way to do it while also keeping track of the darts in the checkout.
+
 ## C program
 
 Compile using your compiler of choice. I used GCC with the following command:
