@@ -9,6 +9,17 @@ const int DARTS[] = {60, 57, 54, 51, 50, 48, 45, 42, 40, 39, 38, 36, 34, 33, 32,
 
 int target, total_darts, total_solutions;
 
+void print_dart() {
+    printf("    __________                                    \n");
+    printf("   /M\\\\\\M|||M//.                                  \n");
+    printf("  /MMM\\\\\\|||///M:.                                \n");
+    printf(" /MMMMM\\\\\\ | //MMMM:.              ______________________ \n");
+    printf("(=========+======<]]]]::::::::::<|||_|||_|||_|||_|||_|||>=========-\n");
+    printf(" \\#MMMM// | \\\\MMMM:'                              \n");
+    printf("  \\#MM///|||\\\\\\M:'                                 \n");
+    printf("   \\M///M|||M\\\\'                                  \n\n");
+}
+
 void reduce_possible_darts(){
     // If the total score required is high we can skip
     // low scoring darts that couldn't feasibly be used
@@ -18,7 +29,7 @@ void reduce_possible_darts(){
     if (approx_lowest_normal_dart > 0) {
         for (int i = 0; i < LEN_DARTS; i++){
             if (DARTS[i] < approx_lowest_normal_dart){
-                printf("Capping possible darts at %d; index %d\n", approx_lowest_normal_dart, i);
+                printf("Capping possible darts at %d\n", approx_lowest_normal_dart);
                 LEN_DARTS = i;
             }
         }
@@ -26,7 +37,7 @@ void reduce_possible_darts(){
     if (approx_lowest_finish_dart > 0) {
         for (int i = 0; i < LEN_DOUBLES; i++){
             if (DOUBLES[i] < approx_lowest_finish_dart){
-                printf("Capping possible finish dart at %d; index %d\n", approx_lowest_finish_dart, i);
+                printf("Capping possible finish dart at %d\n", approx_lowest_finish_dart);
                 LEN_DOUBLES = i;
             }
         }
@@ -86,6 +97,7 @@ int main(int argc, char *argv[]) {
         target = 125;
         total_darts = 3;
     }
+    print_dart();
     printf("Finding %d dart finishes for %d\n", total_darts, target);
 
     clock_t begin = clock();
