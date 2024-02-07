@@ -56,7 +56,7 @@ void normal_darts(int points, int darts[], int dart_count){
     // normal darts are any dart which can be used when not
     // checking out.
     if (points == 0){
-        //print_checkout(darts, dart_count);
+        // print_checkout(darts, dart_count);
         ++total_solutions;
         return;
     }
@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
     clock_t end = clock();
 
     printf("Total solutions: %d\n", total_solutions);
-    printf("%f.2\n", (double)(end - begin) / CLOCKS_PER_SEC);
+    printf("%.2fs\n", (double)(end - begin) / CLOCKS_PER_SEC);
 
     return 0;
 }
