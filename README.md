@@ -1,4 +1,4 @@
-# stand-up-if-you-love-the-darts
+# [stand-up-if-you-love-the-darts](https://www.youtube.com/watch?v=TfwnO3T5TY8)
 
 Two programs for calculating darts checkouts given a total to achieve and a number of darts to achieve it, bearing in mind you have to finish on a double or the bull.
 
