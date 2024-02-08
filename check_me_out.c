@@ -13,7 +13,7 @@ void print_dart() {
     printf("    __________                                    \n");
     printf("   /M\\\\\\M|||M//.                                  \n");
     printf("  /MMM\\\\\\|||///M:.                                \n");
-    printf(" /MMMMM\\\\\\ | //MMMM:.              ______________________ \n");
+    printf(" /MMMMM\\\\\\ | //MMMM:.            ______________________ \n");
     printf("(=========+======<]]]]::::::::::<|||_|||_|||_|||_|||_|||>=========-\n");
     printf(" \\#MMMM// | \\\\MMMM:'                              \n");
     printf("  \\#MM///|||\\\\\\M:'                                 \n");
@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
     clock_t end = clock();
 
     printf("Total solutions: %d\n", total_solutions);
-    printf("%f.2\n", (double)(end - begin) / CLOCKS_PER_SEC);
+    printf("%.2fs\n", (double)(end - begin) / CLOCKS_PER_SEC);
 
     return 0;
 }
