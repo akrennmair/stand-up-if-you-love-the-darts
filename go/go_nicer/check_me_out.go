@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -28,16 +30,15 @@ type dartsSolver struct {
 	allDoubles []int
 	allDarts   []int
 
-	totalSolutions int
+	totalSolutions atomic.Int32
 }
 
 func newDartsSolver(target, totalDarts int) *dartsSolver {
 	s := &dartsSolver{
-		target:         target,
-		totalDarts:     totalDarts,
-		allDoubles:     []int{50, 40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2},
-		allDarts:       []int{60, 57, 54, 51, 50, 48, 45, 42, 40, 39, 38, 36, 34, 33, 32, 30, 28, 27, 26, 25, 24, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
-		totalSolutions: 0,
+		target:     target,
+		totalDarts: totalDarts,
+		allDoubles: []int{50, 40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2},
+		allDarts:   []int{60, 57, 54, 51, 50, 48, 45, 42, 40, 39, 38, 36, 34, 33, 32, 30, 28, 27, 26, 25, 24, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
 	}
 
 	s.lenDoubles = len(s.allDoubles)
@@ -85,7 +86,7 @@ func (s *dartsSolver) normalDarts(points int, darts []int, dartCount int) {
 	// checking out.
 	if points == 0 {
 		// printCheckout(darts, dartCount)
-		s.totalSolutions++
+		s.totalSolutions.Add(1)
 		return
 	}
 
@@ -101,20 +102,28 @@ func (s *dartsSolver) normalDarts(points int, darts []int, dartCount int) {
 }
 
 func (s *dartsSolver) findDartCheckouts() {
-	// Loop over the possible checkout darts, then recursively
+	// Concurrently look at all checkout darts and recursively
 	// search all of the other darts to find possible combinations
 	// that reach the total
 
-	darts := make([]int, s.totalDarts)
-	s.totalSolutions = 0
+	s.totalSolutions.Store(0)
 
 	s.reducePossibleDarts()
 
+	var wg sync.WaitGroup
+
 	for i := 0; i < s.lenDoubles; i++ {
-		fmt.Printf("=== Calculating for finishing dart %d ===\n", s.allDoubles[i])
-		darts[0] = s.allDoubles[i]
-		s.normalDarts(s.target-s.allDoubles[i], darts, 1)
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			darts := make([]int, s.totalDarts)
+			fmt.Printf("=== Calculating for finishing dart %d ===\n", s.allDoubles[i])
+			darts[0] = s.allDoubles[i]
+			s.normalDarts(s.target-s.allDoubles[i], darts, 1)
+		}(i)
 	}
+
+	wg.Wait()
 }
 
 func main() {
@@ -150,6 +159,6 @@ func main() {
 
 	duration := time.Since(ts)
 
-	fmt.Printf("Total solutions: %d\n", s.totalSolutions)
+	fmt.Printf("Total solutions: %d\n", s.totalSolutions.Load())
 	fmt.Printf("%.2fs\n", duration.Seconds())
 }
