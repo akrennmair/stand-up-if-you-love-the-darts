@@ -1,8 +1,8 @@
 # [stand-up-if-you-love-the-darts](https://www.youtube.com/watch?v=TfwnO3T5TY8)
 
-Three programs for calculating darts checkouts given a total to achieve and a number of darts to achieve it, bearing in mind you have to finish on a double or the bull.
+Four programs for calculating darts checkouts given a total to achieve and a number of darts to achieve it, bearing in mind you have to finish on a double or the bull.
 
-The programs are almost identical except one is written in Python (which one takes an hour to find all of the nine dart checkout), one is written in C (whih takes less than a minute), and two slightly different versions of essentially the same Go program, one that is a virtually identical translation of the C version to Go, while the second one is slightly nicer without global variables (the Go versions are slightly slower than the C version).
+The programs are almost identical except one is written in Python (which one takes an hour to find all of the nine dart checkout), one is written in C (which takes less than a minute), one is written in Fortran (also less than a minute), and two slightly different versions of essentially the same Go program, one that is a virtually identical translation of the C version to Go, while the second one is slightly nicer without global variables (the Go versions are slightly slower than the C version).
 
 They all have one small optimisation to reduce the number of darts you have to search for by calculating the minimum possible dart to reach a score, assuming all of the other darts scored their maximums.
 
@@ -19,6 +19,21 @@ The program can then be run with
 I don't do any checking on inputs so don't put any naughty values in.
 
 When I run it with a target score of 501 and 9 darts I get the expected 3944 possible cominations in a time of just over 30 seconds.
+
+## Fortran program
+
+I used GFORTRAN 13.1.0 to compile with the command:
+`gfortran -O3 DartCheckouts.f90 -o DartCheckouts.exe`
+
+and ran the program with
+`./DartCheckouts.exe [target score] [number_of_darts]`
+
+With a target score of 501 and 9 darts I get the expected 3944 possible combinations in just over 26 seconds.
+
+Also had a go at multithreading, added openMP directives to code and compiled with :
+`gfortran -fopenmp -O3 DartCheckouts.f90 -o DartCheckouts.exe`
+
+which runs for the same conditions in 7s.
 
 ## Python Program
 
