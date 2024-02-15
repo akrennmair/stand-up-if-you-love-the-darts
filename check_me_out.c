@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <omp.h>
 
 int LEN_DOUBLES = 21;
 int LEN_DARTS = 43;
@@ -79,6 +80,7 @@ int findDartCheckouts(){
 
     reduce_possible_darts();
 
+    #pragma omp parallel for num_threads(LEN_DOUBLES) private(darts)
     for (int i = 0; i < LEN_DOUBLES; i++){
         printf("=== Calculating for finishing dart %d ===\n", DOUBLES[i]);
         darts[0] = DOUBLES[i];
@@ -89,6 +91,8 @@ int findDartCheckouts(){
 
 int main(int argc, char *argv[]) {
     // takes args from stdin of target and then total_darts, otherwise sets a default value
+    double itime, ftime, exec_time;
+
     if (argc == 3){
         target = atoi(argv[1]);
         total_darts = atoi(argv[2]);
@@ -101,13 +105,18 @@ int main(int argc, char *argv[]) {
     printf("Finding %d dart finishes for %d\n", total_darts, target);
 
     clock_t begin = clock();
+    itime = omp_get_wtime();
 
     int total_solutions = findDartCheckouts();
 
     clock_t end = clock();
+    ftime = omp_get_wtime();
+
+    exec_time = ftime - itime;
 
     printf("Total solutions: %d\n", total_solutions);
-    printf("%.2fs\n", (double)(end - begin) / CLOCKS_PER_SEC);
+    printf("CPU time: %.2fs\n", (double)(end - begin) / CLOCKS_PER_SEC);
+    printf("Time taken is %f\n", exec_time);
 
     return 0;
 }
